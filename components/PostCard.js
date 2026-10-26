@@ -4,9 +4,23 @@ import { formatDate } from "@/lib/format";
 
 export default function PostCard({ post }) {
   const date = formatDate(post.date);
+  const image = post._embedded?.["wp:featuredmedia"]?.[0];
+  const categories = post._embedded?.["wp:term"]?.[0] ?? [];
 
   return (
     <article className={styles.card}>
+      {image && (
+        <img
+          className={styles.image}
+          src={image.source_url}
+          alt={image.alt_text}
+        />
+      )}
+      <ul className={styles.date}>
+        {categories.map((category) => (
+          <li key={category.id}>{category.name}</li>
+        ))}
+      </ul>
       <time className={styles.date} dateTime={post.date}>
         {date}
       </time>

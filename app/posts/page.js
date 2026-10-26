@@ -1,11 +1,9 @@
 import PostCard from "@/components/PostCard";
 import styles from "./page.module.css";
+import { getPosts } from "@/lib/wordpress";
 
 export default async function PostsPage() {
-  const response = await fetch(
-    `${process.env.WORDPRESS_URL}/wp-json/wp/v2/posts`,
-  );
-  const posts = await response.json();
+  const posts = await getPosts();
 
   return (
     <main>
